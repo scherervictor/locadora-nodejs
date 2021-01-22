@@ -4,15 +4,26 @@ import { IUserRepository } from "../../IUserRepository";
 
 export class UserRepository implements IUserRepository {
     async findByEmail(email: string): Promise<User> {
-        
-        connection.query("SELECT Nome, Email, Senha FROM Usuario", (err, result, fields) => {
-            return new User(result[0]);
-        })
-        
-        return null;     
+
+        let sql = 'SELECT name, email FROM users WHERE email = ?';
+        let user:User;
+
+        await connection.then(async (conn) => {
+            let [rows] = await conn.query(sql, [email]);  
+
+            user = new User(rows[0]);
+        });
+
+        return user;
     }
     
-    async save(): Promise<void> {
+    async save(user: User): Promise<void> {
 
+        let sql = 'INSERT INTO users (name, email, password) VALUES (?, ?, ?)'
+        await connection.then(async (conn) => {
+            conn.query(sql, [user.name, user.email, user.password]);
+        }).catch((err) => {
+            throw new Error(err);
+        });
     }
 }

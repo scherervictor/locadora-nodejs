@@ -3,7 +3,7 @@ export class Movie {
 
     public title: string;
     public director: string;
-    public amout: Int32Array;
+    public amout: number;
 
     constructor(props: Omit<Movie, 'id'>, id?: string){
         Object.assign(this, props)
