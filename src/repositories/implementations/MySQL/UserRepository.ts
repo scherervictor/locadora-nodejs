@@ -5,7 +5,7 @@ import { IUserRepository } from "../../IUserRepository";
 export class UserRepository implements IUserRepository {
     async findByEmail(email: string): Promise<User> {
 
-        let sql = 'SELECT name, email FROM users WHERE email = ?';
+        let sql = 'SELECT id, name, email, password FROM users WHERE email = ?';
         let user:User;
 
         await connection.then(async (conn) => {

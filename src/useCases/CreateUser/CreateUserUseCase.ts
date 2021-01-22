@@ -1,6 +1,6 @@
 import { User } from "../../entities/User";
 import { IUserRepository } from "../../repositories/IUserRepository";
-import { ICreateUserRequestDTO } from "./CreateUserDTO";
+import { ICreateUserRequestDTO } from "./ICreateUserRequestDTO";
 
 export class CreateUserUseCase {
     constructor(

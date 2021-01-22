@@ -16,7 +16,7 @@ export class RentMovieUseCase {
         if(isMovieAlreadyRentedByUser) {
             throw new Error("Você já locou esse filme!");
         }
-
+        
         await this.rentMovieRepository.rentMovie(movieId, userId);
     }
 }
