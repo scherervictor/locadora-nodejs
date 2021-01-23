@@ -1,4 +1,5 @@
 import { Request, Response } from "express";
+import { strings } from "../../strings";
 import { FindMoviesAvailableUseCase } from "./FindMoviesAvailableUseCase";
 
 export class FindMoviesAvailableController {
@@ -14,7 +15,7 @@ export class FindMoviesAvailableController {
             return response.status(200).json({movies}).send();
         } catch (err) {
             return response.status(400).json({
-                message: err.message || "Erro inesperado.."
+                message: err.message || strings.error
             })
         }
     }

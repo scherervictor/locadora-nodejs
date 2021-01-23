@@ -1,0 +1,328 @@
+{
+    "swagger": "2.0",
+    "info": {
+      "description": "API construida para atender o teste da empresa 4ALL",
+      "version": "1.0.0",
+      "title": "Locadora API",
+      "termsOfService": "http://swagger.io/terms/",
+      "contact": {
+        "email": "victorescherer@hotmail.com"
+      },
+      "license": {
+        "name": "Apache 2.0",
+        "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+      }
+    },
+    "host": "localhost:3005",
+    "basePath": "/v2",
+    "tags": [
+      {
+        "name": "Users",
+        "description": "Create new Users"
+      },
+      {
+        "name": "Movies",
+        "description": "Find movies by Title or Check if is available"
+      },
+      {
+        "name": "Rent Movie",
+        "description": "Rent Movie with Authenticated User"
+      },
+      {
+        "name": "Return Movie",
+        "description": "Return Movie with Authenticated User"
+      },
+      {
+        "name": "Login",
+        "description": "Authentication"
+      }
+    ],
+    "schemes": [
+      "http"
+    ],
+    "paths": {
+      "/users": {
+        "post": {
+          "tags": [
+            "Users"
+          ],
+          "summary": "Adicionar novo usuário",
+          "description": "",
+          "operationId": "addUser",
+          "consumes": [
+            "application/json"
+          ],
+          "produces": [
+            "application/json"
+          ],
+          "parameters": [
+            {
+              "in": "body",
+              "name": "body",
+              "description": "Informações nome, email e senha para registro de usuário",
+              "required": true,
+              "schema": {
+                "$ref": "#/definitions/Users"
+              }
+            }
+          ],
+          "responses": {
+            "405": {
+              "description": "Invalid input"
+            }
+          }
+        }
+      },
+      "/movies": {
+        "get": {
+          "tags": [
+            "Movies"
+          ],
+          "summary": "Buscar filmes pelo nome",
+          "description": "",
+          "operationId": "findMovie",
+          "consumes": [
+            "application/json"
+          ],
+          "produces": [
+            "application/json"
+          ],
+          "parameters": [
+            {
+              "in": "path",
+              "name": "name",
+              "description": "Utilizar o parametro 'name' via query passando o nome exato e/ou aproximado do filme que está buscando",
+              "required": true
+            }
+          ],
+          "responses": {
+            "405": {
+              "description": "Parametros Inválidos"
+            },
+            "400": {
+              "description": "Não encontrado"
+            },
+            "200": {
+              "description": "Sucesso no request"
+            }
+          }
+        }
+      },
+      "/moviesAvailable": {
+        "get": {
+          "tags": [
+            "Movies"
+          ],
+          "summary": "Listar todos filmes disponiveis para locação",
+          "description": "",
+          "operationId": "findAvailableMovies",
+          "consumes": [
+            "application/json"
+          ],
+          "produces": [
+            "application/json"
+          ],        
+          "responses": {
+            "400": {
+              "description": "Não existem filmes disponiveis"
+            },
+            "200": {
+              "description":"Sucesso no request"
+            }
+          }
+        }
+      },
+      "/rentMovie": {
+        "post": {
+          "tags": [
+            "Rent Movie"
+          ],
+          "summary": "Alugar filme",
+          "description": "",
+          "operationId": "rentMovie",
+          "consumes": [
+            "application/json"
+          ],
+          "produces": [
+            "application/json"
+          ],
+          "parameters": [
+            {
+              "in": "body",
+              "name": "body",
+              "description": "Id do filme que deseja locar",
+              "required": true,
+              "schema": {
+                "$ref": "#/definitions/RentReturnMovie"
+              }
+            }
+          ],
+          "responses": {
+            "400": {
+              "description": "Erro desconhecido"
+            },
+            "200": {
+              "description":"Sucesso no request"
+            }
+          },
+          "security": [
+            {
+              "users_auth": [
+                "rent:movie",
+                "return:movie"
+              ]
+            }
+          ]
+        }
+      },
+      "/returnMovie": {
+        "post": {
+          "tags": [
+            "Return Movie"
+          ],
+          "summary": "Devolver filme locado",
+          "description": "",
+          "operationId": "returnMovie",
+          "consumes": [
+            "application/json"
+          ],
+          "produces": [
+            "application/json"
+          ],
+          "parameters": [
+            {
+              "in": "body",
+              "name": "body",
+              "description": "Id do filme que deseja devolver",
+              "required": true,
+              "schema": {
+                "$ref": "#/definitions/RentReturnMovie"
+              }
+            }
+          ],
+          "responses": {
+            "400": {
+              "description": "Erro desconhecido"
+            },
+            "200": {
+              "description":"Sucesso no request"
+            }
+          },
+          "security": [
+            {
+              "users_auth": [
+                "rent:movie",
+                "return:movie"
+              ]
+            }
+          ]
+        }
+      },
+      "/login": {
+        "post": {
+          "tags": [
+            "Login"
+          ],
+          "summary": "Autenticar usuário para locar e devolver filmes",
+          "description": "",
+          "operationId": "findAvailableMovies",
+          "consumes": [
+            "application/json"
+          ],
+          "produces": [
+            "application/json"
+          ],
+          "parameters": [
+            {
+              "in": "body",
+              "name": "body",
+              "description": "Informar email e senha para realizar a autenticação",
+              "required": true,
+              "schema": {
+                "$ref": "#/definitions/Login"
+              }
+            }
+          ],
+          "responses": {
+            "400": {
+              "description": "Erro desconhecido"
+            },
+            "200": {
+              "description":"Sucesso no request"
+            }
+          }
+        }
+      }
+    },
+    "securityDefinitions": {
+      "rentreturnmovies_auth": {
+        "type": "oauth2",
+        "flow": "implicit",
+        "scopes": {
+          "rent:movie": "rent movies",
+          "return:movie": "return movies"
+        }
+      },
+      "api_key": {
+        "type": "apiKey",
+        "name": "api_key",
+        "in": "header"
+      }
+    },
+    "definitions": {
+      "Users": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "password": {
+            "type": "string"
+          }
+        },
+        "xml": {
+          "name": "User"
+        }
+      },
+      "Login": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string"
+          },
+          "password": {
+            "type": "string"
+          }
+        },
+        "xml": {
+          "name": "User"
+        }
+      },
+      "RentReturnMovie": {
+        "type": "object",
+        "properties": {
+          "movieId": {
+            "type": "string"
+          }
+        },
+        "xml": {
+          "name": "User"
+        }
+      },
+      "ApiResponse": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "externalDocs": {
+      "description": "Find out more about Swagger",
+      "url": "http://swagger.io"
+    }
+  }

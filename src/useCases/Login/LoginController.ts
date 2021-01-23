@@ -1,4 +1,5 @@
 import { Request, Response } from "express";
+import { strings } from "../../strings";
 import { LoginUseCase } from "./LoginUseCase";
 
 export class LoginController {
@@ -18,7 +19,7 @@ export class LoginController {
             return response.status(200).json({auth:true, token: token}).send();
         } catch (err) {
             return response.status(400).json({
-                message: err.message || "Erro inesperado.."
+                message: err.message || strings.error
             })
         }
     }

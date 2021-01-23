@@ -1,5 +1,5 @@
-import mysql from "mysql2/promise"
+import mysql from "mysql2/promise";
+require('dotenv').config();
 
-const connection = mysql.createConnection("mysql://root:admin@localhost:3306/locadora");
-
+const connection = mysql.createConnection(process.env.CONN_STRING);
 export { connection }

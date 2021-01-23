@@ -1,3 +1,4 @@
 import { app } from "./app";
+import "dotenv/config";
 
-app.listen(3005)
+app.listen(process.env.SERVER_PORT);
