@@ -1,0 +1,9 @@
+{
+    "error": "Ocorreu um inesperado.",
+    "movieNotFound": "Filme não encontrado",
+    "movieNotAvailable": "Filme não está disponível para locação",
+    "youAlreadyRentedThisMovie": "Você já locou esse filme",
+    "invalidCredentials": "Credenciais inválidas",
+    "noMoviesAvailable": "Não há filmes disponíveis",
+    "informTitle": "Por favor, informe um titulo"
+}

@@ -1,3 +1,5 @@
+import bcrypt from "bcrypt";
+
 export class User{
     public readonly id: string;
     
@@ -6,6 +8,10 @@ export class User{
     public password: string;
     
     constructor(props: Omit<User, 'id'>, id?: string){
-        Object.assign(this, props)
+        Object.assign(this, props);
+    }
+
+    passwordCryptograph() {
+        this.password = bcrypt.hashSync(this.password, 10);
     }
 }

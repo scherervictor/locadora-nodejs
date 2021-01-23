@@ -15,7 +15,8 @@ export class CreateUserUseCase {
         }
         
         const user = new User(data);
-
+        user.passwordCryptograph();
+        
         await this.usersRepository.save(user);
     }
 }

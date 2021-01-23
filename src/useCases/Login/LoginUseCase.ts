@@ -2,6 +2,8 @@ import { IUserRepository } from "../../repositories/IUserRepository";
 import { ILoginDTO } from "./ILoginDTO";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
+import "dotenv/config";
+import { strings } from "../../strings";
 
 export class LoginUseCase {
     constructor (
@@ -12,15 +14,15 @@ export class LoginUseCase {
         const user = await this.usersRepository.findByEmail(data.email);
 
         if (!user.email) {
-            throw new Error("Credenciais inválidas.");
+            throw new Error(strings.invalidCredentials);
         }
 
         let validPassword = await bcrypt.compare(data.password, user.password);
 
         if (!validPassword) {
-            throw new Error("Credenciais inválidas.");
+            throw new Error(strings.invalidCredentials);
         }
 
-        return jwt.sign({userId: user.id, userName: user.name}, "secretLocadora", { expiresIn: 1200 });
+        return jwt.sign({userId: user.id, userName: user.name}, process.env.JWT_SECRET, { expiresIn: 1200 });
     }
 }

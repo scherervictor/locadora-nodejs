@@ -1,5 +1,6 @@
 import { Movie } from "../../entities/Movie";
 import { IMovieRepository } from "../../repositories/IMovieRepository";
+import { strings } from "../../strings";
 
 export class FindMoviesAvailableUseCase {
     constructor (
@@ -10,7 +11,7 @@ export class FindMoviesAvailableUseCase {
         const movies = await this.moviesRepository.getAllAvalaibleMovies();
 
         if(!movies) {
-            throw new Error("Não há filmes disponíveis.")        
+            throw new Error(strings.noMoviesAvailable)        
         }
 
         return movies;

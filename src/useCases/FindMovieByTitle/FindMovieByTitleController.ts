@@ -1,4 +1,5 @@
 import { Request, Response } from "express";
+import { strings } from "../../strings";
 import { FindMovieByTitleUseCase } from "./FindMovieByTitleUseCase";
 
 export class FindMovieByTitleController {
@@ -11,7 +12,7 @@ export class FindMovieByTitleController {
 
         if(!title) {
             return response.status(400).json({
-                message: "Favor informar um titulo!"
+                message: strings.informTitle
             });
         }
         try{
@@ -22,7 +23,7 @@ export class FindMovieByTitleController {
            }).send();
         } catch (err) {
             return response.status(400).json({
-                message: err.message || "Erro inesperado.."
+                message: err.message || strings.error
             })
         }
     }
