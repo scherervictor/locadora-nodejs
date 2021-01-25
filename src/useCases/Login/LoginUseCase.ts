@@ -3,7 +3,7 @@ import { ILoginRequestDTO } from "./ILoginRequestDTO";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import "dotenv/config";
-import { strings } from "../../strings";
+const strings = require("../../strings.json");
 
 export class LoginUseCase {
     constructor (
@@ -17,7 +17,11 @@ export class LoginUseCase {
             throw new Error(strings.invalidCredentials);
         }
 
-        let validPassword = await bcrypt.compare(data.password, user.password);
+        if(!data.email || !data.password) {
+            throw new Error(strings.invalidCredentials);
+        }
+
+        const validPassword = await bcrypt.compare(data.password, user.password);
 
         if (!validPassword) {
             throw new Error(strings.invalidCredentials);

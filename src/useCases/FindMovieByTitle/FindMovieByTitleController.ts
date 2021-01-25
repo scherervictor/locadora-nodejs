@@ -18,7 +18,7 @@ export class FindMovieByTitleController {
         
 
         try{
-           let movies = await this.findMovieByTitleUseCase.execute({title})
+           const movies = await this.findMovieByTitleUseCase.execute({title})
 
            return response.status(200).json({
                movies

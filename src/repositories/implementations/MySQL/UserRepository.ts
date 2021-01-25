@@ -5,11 +5,11 @@ import { IUserRepository } from "../../IUserRepository";
 export class UserRepository implements IUserRepository {
     async findByEmail(email: string): Promise<User> {
 
-        let sql = 'SELECT id, name, email, password FROM users WHERE email = ?';
+        const sql = 'SELECT id, name, email, password FROM users WHERE email = ?';
         let user:User;
 
         await connection.then(async (conn) => {
-            let [rows] = await conn.query(sql, [email]);  
+            const [rows] = await conn.query(sql, [email]);  
 
             user = new User(rows[0]);
         });
@@ -19,7 +19,7 @@ export class UserRepository implements IUserRepository {
     
     async save(user: User): Promise<void> {
 
-        let sql = 'INSERT INTO users (name, email, password) VALUES (?, ?, ?)'
+        const sql = 'INSERT INTO users (name, email, password) VALUES (?, ?, ?)'
         await connection.then(async (conn) => {
             conn.query(sql, [user.name, user.email, user.password]);
         }).catch((err) => {

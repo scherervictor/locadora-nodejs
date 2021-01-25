@@ -14,6 +14,10 @@ export class ReturnMovieUseCase {
             throw new Error(strings.youAlreadyRentedThisMovie);
         }
 
+        if(!data.movieId) {
+            throw new Error(strings.invalidInformation);
+        }
+
         await this.rentMovieRepository.returnMovie(data.movieId, data.userId);
     }
 }

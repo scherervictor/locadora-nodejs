@@ -14,6 +14,10 @@ export class RentMovieUseCase {
             throw new Error(strings.movieNotAvailable);
         }
 
+        if(!data.movieId) {
+            throw new Error(strings.invalidInformation);
+        }
+
         const isMovieAlreadyRentedByUser = await this.rentMovieRepository.isMovieAlreadyRentedByUser(data.movieId, data.userId);
 
         if(isMovieAlreadyRentedByUser) {

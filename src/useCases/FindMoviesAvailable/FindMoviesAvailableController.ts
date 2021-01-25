@@ -10,7 +10,7 @@ export class FindMoviesAvailableController {
     async handle(request: Request, response: Response): Promise<Response> {
         
         try{
-            let movies = await this.findMoviesAvalaibleUseCase.execute()
+            const movies = await this.findMoviesAvalaibleUseCase.execute()
 
             return response.status(200).json({movies}).send();
         } catch (err) {
