@@ -23,7 +23,7 @@ Esta API fornece um exemplo de locadora simples em Node.js
 
 Para utilizar a api utilize o aplicativo Postman ou o própio swagger configurando na API.
 
-_Para verificar todas as rotas, por favor ler a Documentação que está no swagger na "URL-BASE"/api-docs
+_Para verificar todas as rotas, por favor ler a Documentação que está no swagger na "URL-BASE"/api-docs ou no arquivo Documentação.docx
 
 ## Utilização dos testes de integração
 
