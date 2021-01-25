@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
-import { strings } from "../../strings";
 import { LoginUseCase } from "./LoginUseCase";
+const strings = require("../../strings.json");
 
 export class LoginController {
     constructor(

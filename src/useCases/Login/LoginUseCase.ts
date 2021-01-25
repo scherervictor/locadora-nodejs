@@ -1,5 +1,5 @@
 import { IUserRepository } from "../../repositories/IUserRepository";
-import { ILoginDTO } from "./ILoginDTO";
+import { ILoginRequestDTO } from "./ILoginRequestDTO";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import "dotenv/config";
@@ -10,7 +10,7 @@ export class LoginUseCase {
         private usersRepository: IUserRepository
     ) {}
 
-    async execute (data: ILoginDTO): Promise<string> {
+    async execute (data: ILoginRequestDTO): Promise<string> {
         const user = await this.usersRepository.findByEmail(data.email);
 
         if (!user.email) {

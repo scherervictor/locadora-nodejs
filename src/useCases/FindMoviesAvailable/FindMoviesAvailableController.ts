@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
-import { strings } from "../../strings";
 import { FindMoviesAvailableUseCase } from "./FindMoviesAvailableUseCase";
+const strings = require("../../strings.json");
 
 export class FindMoviesAvailableController {
     constructor(

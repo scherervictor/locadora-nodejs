@@ -1,6 +1,7 @@
 import { User } from "../../entities/User";
 import { IUserRepository } from "../../repositories/IUserRepository";
 import { ICreateUserRequestDTO } from "./ICreateUserRequestDTO";
+const strings = require("../../strings.json");
 
 export class CreateUserUseCase {
     constructor(
@@ -11,9 +12,13 @@ export class CreateUserUseCase {
         const existingUser = await this.usersRepository.findByEmail(data.email);
         
         if(existingUser.email) {
-            throw new Error("Usuário já existe!")
+            throw new Error(strings.userAlreadyExist)
         }
         
+        if(!data.name || !data.email || data.email.length <= 0 || !data.password || data.password.length <= 0){
+            throw new Error(strings.invalidInformation)
+        }
+
         const user = new User(data);
         user.passwordCryptograph();
         

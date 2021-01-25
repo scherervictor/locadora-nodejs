@@ -1,18 +1,19 @@
 import { IRentMovieRepository } from "../../repositories/IRentMovieRepository";
-import { strings } from "../../strings";
+import { IReturnMovieRequestDTO } from "./IReturnMovieRequestDTO";
+const strings = require("../../strings.json");
 
 export class ReturnMovieUseCase {
     constructor(
         private rentMovieRepository: IRentMovieRepository
     ) {}
 
-    async execute(movieId: number, userId: number){         
-        const isMovieAlreadyRentedByUser = await this.rentMovieRepository.isMovieAlreadyRentedByUser(movieId, userId);
+    async execute(data: IReturnMovieRequestDTO){         
+        const isMovieAlreadyRentedByUser = await this.rentMovieRepository.isMovieAlreadyRentedByUser(data.movieId, data.userId);
 
         if(!isMovieAlreadyRentedByUser) {
             throw new Error(strings.youAlreadyRentedThisMovie);
         }
 
-        await this.rentMovieRepository.returnMovie(movieId, userId);
+        await this.rentMovieRepository.returnMovie(data.movieId, data.userId);
     }
 }

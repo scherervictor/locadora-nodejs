@@ -1,16 +1,23 @@
 {
   "scripts": {
-    "start": "tsnd --transpile-only --respawn --ignore-watch node_modules src/server.ts"
+    "start": "tsnd --transpile-only --respawn --ignore-watch node_modules src/server.ts",
+    "test": "cross-env NODE_ENV=test jest"
   },
   "dependencies": {
+    "@types/jest": "^26.0.20",
+    "@types/supertest": "^2.0.10",
     "bcrypt": "^5.0.0",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
+    "jest": "^26.6.3",
     "jsonwebtoken": "^8.5.1",
     "mysql": "^2.18.1",
     "mysql2": "^2.2.5",
+    "supertest": "^6.1.1",
     "swagger-jsdoc": "^6.0.1",
-    "swagger-ui-express": "^4.1.6"
+    "swagger-ui-express": "^4.1.6",
+    "ts-jest": "^26.4.4",
+    "ts-node": "^9.1.1"
   },
   "devDependencies": {
     "@types/bcrypt": "^3.0.0",

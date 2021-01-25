@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
-import { strings } from "../../strings";
 import { FindMovieByTitleUseCase } from "./FindMovieByTitleUseCase";
+const strings = require("../../strings.json");
 
 export class FindMovieByTitleController {
     constructor (
@@ -15,8 +15,10 @@ export class FindMovieByTitleController {
                 message: strings.informTitle
             });
         }
+        
+
         try{
-           let movies = await this.findMovieByTitleUseCase.execute(title.toString())
+           let movies = await this.findMovieByTitleUseCase.execute({title})
 
            return response.status(200).json({
                movies

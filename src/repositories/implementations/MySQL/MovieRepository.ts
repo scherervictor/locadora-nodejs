@@ -5,13 +5,13 @@ import { IMovieRepository } from "../../IMovieRepository";
 export class MovieRepository implements IMovieRepository{
     
     async findByTitle(title: string) : Promise<Movie[]>{
-        let sql = "SELECT m.title, m.director FROM movies AS m WHERE m.title LIKE '%" + title + "%'";
-
+        let sql = "SELECT m.id, m.title, m.director FROM movies AS m WHERE m.title LIKE '%" + title + "%'";
+        
         return await this.listMovies(sql);
     }
 
     async getAllAvalaibleMovies() : Promise<Movie[]>{
-        let sql = "SELECT m.title, m.director FROM movies AS m WHERE m.quantity > (SELECT COUNT(1) FROM rentMovies AS rm WHERE rm.movieId = m.id)";        
+        let sql = "SELECT m.id, m.title, m.director FROM movies AS m WHERE m.quantity > (SELECT COUNT(1) FROM rentMovies AS rm WHERE rm.movieId = m.id)";        
 
         return await this.listMovies(sql);
     }

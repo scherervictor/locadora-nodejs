@@ -1,6 +1,6 @@
 import { Movie } from "../../entities/Movie";
 import { IMovieRepository } from "../../repositories/IMovieRepository";
-import { strings } from "../../strings";
+const strings = require("../../strings.json");
 
 export class FindMoviesAvailableUseCase {
     constructor (

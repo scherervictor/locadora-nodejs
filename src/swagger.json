@@ -14,23 +14,22 @@
       }
     },
     "host": "localhost:3005",
-    "basePath": "/v2",
     "tags": [
       {
         "name": "Users",
-        "description": "Create new Users"
+        "description": "Criar novos usuários"
       },
       {
-        "name": "Movies",
-        "description": "Find movies by Title or Check if is available"
+        "name": "Filmes",
+        "description": "Verificar se existem filmes pelo titulo ou verificar filmes disponiveis"
       },
       {
-        "name": "Rent Movie",
-        "description": "Rent Movie with Authenticated User"
+        "name": "Locar filme",
+        "description": "Alugar filme passando no header a chave 'authentication' de um token valido"
       },
       {
-        "name": "Return Movie",
-        "description": "Return Movie with Authenticated User"
+        "name": "Devolver Filme",
+        "description": "Alugar filme passando no header a chave 'authentication' de um token valido"
       },
       {
         "name": "Login",
@@ -67,8 +66,11 @@
             }
           ],
           "responses": {
-            "405": {
-              "description": "Invalid input"
+            "201": {
+              "description": "Sucesso no request"
+            },
+            "400": {
+              "description": "Informações para cadastro inválidas"
             }
           }
         }
@@ -161,7 +163,7 @@
             "400": {
               "description": "Erro desconhecido"
             },
-            "200": {
+            "201": {
               "description":"Sucesso no request"
             }
           },
@@ -255,17 +257,9 @@
       }
     },
     "securityDefinitions": {
-      "rentreturnmovies_auth": {
-        "type": "oauth2",
-        "flow": "implicit",
-        "scopes": {
-          "rent:movie": "rent movies",
-          "return:movie": "return movies"
-        }
-      },
       "api_key": {
         "type": "apiKey",
-        "name": "api_key",
+        "name": "authentication",
         "in": "header"
       }
     },

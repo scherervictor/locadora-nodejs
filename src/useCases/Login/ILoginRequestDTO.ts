@@ -1,4 +1,4 @@
-export interface ILoginDTO {
+export interface ILoginRequestDTO {
     email: string;
     password: string;
 }

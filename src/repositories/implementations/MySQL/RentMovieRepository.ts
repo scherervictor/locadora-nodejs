@@ -4,7 +4,7 @@ import { IRentMovieRepository } from "../../IRentMovieRepository";
 export class RentMovieRepository implements IRentMovieRepository {
     async isMovieAvailable(movieId: number): Promise<boolean> {
         let sql = "SELECT m.quantity > (SELECT COUNT(1) FROM rentMovies AS rm WHERE rm.movieId = m.id) AS available FROM movies AS m WHERE m.id = " + movieId;
-
+        
         return await this.checkMovieAvalability(sql);
     }
     async isMovieAlreadyRentedByUser(movieId: number, userId: number): Promise<boolean> {
@@ -28,7 +28,7 @@ export class RentMovieRepository implements IRentMovieRepository {
 
         await connection.then(async (conn) => {
             let [rows] = await conn.query(sql);
-            result = rows[0].available === 1;          
+            result = rows[0] ? rows[0].available === 1 : false;          
         });
 
         return result;

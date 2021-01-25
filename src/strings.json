@@ -5,5 +5,7 @@
     "youAlreadyRentedThisMovie": "Você já locou esse filme",
     "invalidCredentials": "Credenciais inválidas",
     "noMoviesAvailable": "Não há filmes disponíveis",
-    "informTitle": "Por favor, informe um titulo"
+    "informTitle": "Por favor, informe um titulo",
+    "invalidInformation": "Informações Inválidas",
+    "userAlreadyExist": "Usuário já existe"
 }
